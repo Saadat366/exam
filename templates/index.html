@@ -1,11 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Все фото</h2>
-    <ol>
+    <div>
         {% for pics in pics_list %}
-            <li>{{ pics }}</li>
+            <div><img src="{{ pics }}"></div>
+            <br>
         {% endfor %}
-    </ol>
+    </div>
 {% endblock %}
-

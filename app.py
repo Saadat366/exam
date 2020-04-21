@@ -15,9 +15,11 @@ def add():
 
 @app.route("/add-pic", methods=["POST"])
 def add_pic():
-    pic = request.form["pic"]
+    description = request.form.get("description")
+    pic = request.form.get["pic"]
     pics = open('links.txt', 'a+', encoding="utf-8")
-    pics.write(pic + "\n")
+    pics.write(pic + "\n" + description)
+    ururu = [row.split[0] for row.split() in pics if row]
     pics.close()
     return render_template("picadded.html")
 

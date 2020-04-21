@@ -2,10 +2,13 @@
 
 {% block content %}
 
-    <h2>Добавить заметку</h2>
+    <h2>Добавить картинку</h2>
     <form action="{{ url_for('add_pic') }}" method="POST">
-        <input type="text" name="pic" placeholder="ссылка на картинку">
-        <button>Добавить</button>
+        <div class="form-group">
+            <textarea name="description" class="form-control" placeholder="Описание"></textarea>
+        </div>
+        <input type="text" name="pic" placeholder="URL картинки">
+        <button class="btn btn-dark">Добавить</button>
     </form>
 
 {% endblock %}
