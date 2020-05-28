@@ -1,13 +1,20 @@
 from flask import Flask, render_template, request
+from openpyxl import load_workbook
 
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-    pics = open("links.txt", "r", encoding="utf-8")
-    pics_list = [row for row in pics]
-    pics.close()
-    return render_template('index.html', pics_list=pics_list)
+    images = []
+    excel = load_workbook("gallery.xlsx")
+    page = excel["Лист1"]
+    for row in page:
+        url = row[0].value
+        title = row[2].value
+        pics_list = [title, url] 
+        images.append(pics_list) 
+
+    return render_template('index.html', images=images)
 
 @app.route("/add")
 def add():
@@ -17,9 +24,18 @@ def add():
 def add_pic():
     description = request.form.get("description")
     pic = request.form.get["pic"]
-    pics = open('links.txt', 'a+', encoding="utf-8")
-    pics.write(pic + "\n" + description)
-    ururu = [row.split[0] for row.split() in pics if row]
-    pics.close()
+    title = request.form.get("title")
+    excel = load_workbook("gallery.xlsx")
+    page = excel["Лист1"]
+    page.append([pic, description, title])
+    excel.save('gallery.xlsx')
+
     return render_template("picadded.html")
+
+@app.route("/details/<number>")
+def details(number):
+    excel = load_workbook("gallery.xlsx")
+    page = excel["Лист1"]
+    lst = page[str(number)]
+    return render_template("details.html", lst=lst)
 

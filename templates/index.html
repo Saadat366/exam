@@ -2,8 +2,12 @@
 
 {% block content %}
     <div>
-        {% for pics in pics_list %}
-            <div><img src="{{ pics }}"></div>
+        {% for pics in images %}
+            <div>
+                <h4><a href="{{ url_for('details', number=loop.index) }}">{{ pics.0 }}</a></h4>
+                <img src="{{ pics.1 }}">
+            </div>
+            <hr>
             <br>
         {% endfor %}
     </div>
